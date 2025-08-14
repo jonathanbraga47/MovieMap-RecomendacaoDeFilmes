@@ -5,14 +5,17 @@ import java.util.ArrayList;
 public class Filme {
     private String nome;
     private int ano;
-    private ArrayList<String> generos;
-    private ArrayList<Ator> atores;
+    private String genero;
+    private String descricao;
+    private ArrayList<String> atores;
 
-    public Filme(ArrayList<Ator> atores, String nome, int ano, ArrayList<String> generos) {
+
+    public Filme(String nome, int ano, String genero, String descricao, ArrayList<String> atores) {
         this.atores = atores;
         this.nome = nome;
         this.ano = ano;
-        this.generos = generos;
+        this.genero = genero;
+        this.descricao = descricao;
     }
 
 
