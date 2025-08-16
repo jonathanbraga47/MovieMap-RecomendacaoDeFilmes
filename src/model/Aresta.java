@@ -1,45 +1,33 @@
 package model;
-
+import enums.TipoAresta;
 import java.util.ArrayList;
 
 public class Aresta {
-    private ArrayList<Filme> relacionadosPorGenero = new ArrayList<>();
-    private ArrayList<Filme> relacionadosPorAtor = new ArrayList<>();;
     private Filme destino;
+    private TipoAresta tipo;
     private int peso;
 
-    public Aresta(Filme Destino, int fatorDeRelacao, int peso) {
-        if (fatorDeRelacao == 0) {
-            this.relacionadosPorGenero.add(Destino);
-        } else if (fatorDeRelacao == 1) {
-            this.relacionadosPorAtor.add(Destino);
-        }
+    public Aresta(Filme Destino, TipoAresta tipo, int peso) {
+        this.destino = Destino;
+        this.tipo = tipo;
+        this.peso = peso;
     }
 
-    //setters:
-
-    public void setRelacionadosPorGenero(Filme relacionadosPorGenero) {
-        this.relacionadosPorGenero.add(relacionadosPorGenero);
-    }
-
-    public void setRelacionadosPorAtor(Filme relacionadosPorAtor) {
-        this.relacionadosPorAtor.add(relacionadosPorAtor);
-    }
-
-    public void setRelacionadosPorAtor(ArrayList<Filme> relacionadosPorAtor) {
-        this.relacionadosPorAtor = relacionadosPorAtor;
-    }
-    //getters:
-
-    public ArrayList<Filme> getGeneros() {
-        return relacionadosPorGenero;
-    }
-
-    public ArrayList<Filme> getFilmeatores() {
-        return relacionadosPorAtor;
+    public TipoAresta getTipo() {
+        return tipo;
     }
 
     public Filme getDestino() {
         return destino;
     }
+    public int getPeso() {
+        return peso;
+    }
+
+    @Override
+    public String toString(){
+        return "Aresta{" + "destino : "+ destino.getNome();
+    }
+    //setters:
+
 }
