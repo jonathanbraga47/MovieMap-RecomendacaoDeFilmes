@@ -10,8 +10,8 @@ public class Filme {
     private ArrayList<String> atores;
 
     private ArrayList<Aresta> relacionadosPorGenero = new ArrayList<>();
-
-    public ArrayList<Aresta> relacionadosPorAtor = new ArrayList<>();
+ // lembrar de trocar
+    private ArrayList<Aresta> relacionadosPorAtor = new ArrayList<>();
 
     public Filme(String nome, int ano, String genero, String descricao, ArrayList<String> atores) {
         this.atores = atores;
@@ -34,6 +34,23 @@ public class Filme {
         }else{
             return relacionadosPorAtor;
         }
+    }
+
+    /*public void imprimirVertice() {
+        for (Filme filme : relacionadosPorAtor){
+            System.out.println(filme);
+        }
+    }*/
+
+    @Override
+    public String toString() {
+        return "Filme: \n"+
+                "Nome: " + getNome() + "\n"+
+                "Ano de lançamento: " + getAno() + "\n"+
+                "Gênero: " + getGenero() + "\n" +
+                "Descrição: " + getDescricao() + "\n" +
+                "Atores: " + getAtores() + "\n" +
+                "============================================\n";
     }
 
     public String getNome() {

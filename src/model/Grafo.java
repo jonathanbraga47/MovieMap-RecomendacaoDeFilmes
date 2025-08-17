@@ -16,10 +16,9 @@ public class Grafo {
     }
 
     // Adiciona uma aresta (não direcionada por padrão)
-    public void adicionarAresta(Filme origem, Filme destino, TipoAresta tipo, int peso ) {
+    public Grafo adicionarAresta(Grafo grafo, Filme origem, Filme destino, TipoAresta tipo, int peso ) {
         adicionarVertice(origem);
         adicionarVertice(destino);
-
 
         // Adiciona origem → destino
         if (!existeAresta(origem, destino, tipo)) {
@@ -32,6 +31,8 @@ public class Grafo {
             Aresta aresta2 = new Aresta(origem, tipo, peso);
             adjacencia.get(destino.getNome()).addAresta(aresta2, tipo); //ajeitar
         }
+
+        return grafo;
     }
 
     public boolean existeAresta(Filme origem, Filme destino, TipoAresta tipo) {
@@ -44,23 +45,26 @@ public class Grafo {
                 .anyMatch(a -> a.getDestino().equals(destino));
     }
 
-    public void imprimirGrafo() {
-        /*for(int i = 0; i < adjacencia.size(); i++){
-            System.out.println("vertice: " + adjacencia.get("a").getNome());
-           // System.out.println("arestas: " + adjacencia.get("a").);
-        }*/
-        for(Filme vertice : adjacencia.values()){
-            System.out.println(vertice.getNome());
-            System.out.println("Arestas de ator:");
-            for(Aresta a: vertice.getRelacionados(TipoAresta.ARESTA_ATOR)){
-                System.out.println(a.getDestino());
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(); //usa para concatenar em loop
+        sb.append("\n======== GRAFO =======\n"); //cabeça~lho com quebra de linha antes de depois
+        for(Filme filme : adjacencia.values()){ //percorre todos os vértices(filmes) do map FORA DE ORDEM
+            sb.append("\nVértice : ")
+            .append(filme.getNome()).append(" \n    Arestas: ");
+            for(TipoAresta tipo : TipoAresta.values()){//percorre cada tipo de aresta
+                List<Aresta> relacionadas = filme.getRelacionados(tipo); //pega as arestas do tipo para o film
+                    if(tipo.equals(TipoAresta.ARESTA_GENERO) && !relacionadas.isEmpty())
+                            sb.append("\n       Relacionados por Genero:");
+                if(tipo.equals(TipoAresta.ARESTA_ATOR) && !relacionadas.isEmpty())
+                        sb.append("\n       Relacionados por Ator:");
+                    for(Aresta aresta : relacionadas){//percorre cada aresta daquele tipo
+                        sb.append(" ")//para mostrar ligação
+                                .append(aresta.getDestino().getNome()+",");//usa tostring da aretsa}
+                }
             }
-            System.out.println("Arestas de genero:");
-            for(Aresta a: vertice.getRelacionados(TipoAresta.ARESTA_GENERO)){
-                System.out.println(a.getDestino());
-            }
-
+            sb.append("\n");
         }
+        return sb.toString();
     }
 }
-

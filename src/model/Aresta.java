@@ -13,6 +13,14 @@ public class Aresta {
         this.peso = peso;
     }
 
+    @Override
+    public String toString() {
+        return "Aresta:" +
+                "Destino: " + getDestino().getNome() + "\n" +
+                "Tipo:" + getTipo() + "\n" +
+                "Peso: " + getPeso() + "\n";
+    }
+
     public TipoAresta getTipo() {
         return tipo;
     }
@@ -20,14 +28,8 @@ public class Aresta {
     public Filme getDestino() {
         return destino;
     }
+
     public int getPeso() {
         return peso;
     }
-
-    @Override
-    public String toString(){
-        return "Aresta{" + "destino : "+ destino.getNome();
-    }
-    //setters:
-
 }
