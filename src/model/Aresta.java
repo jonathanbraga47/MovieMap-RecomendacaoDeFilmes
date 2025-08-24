@@ -12,7 +12,6 @@ public class Aresta {
         this.peso = peso;
     }
 
-    //Getters: --------------------
     public TipoAresta getTipo() {
         return tipo;
     }
@@ -22,7 +21,6 @@ public class Aresta {
     public int getPeso() {
         return peso;
     }
-    //--------------------
 
     @Override
     public String toString() { //Impressão de Aresta

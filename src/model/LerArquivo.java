@@ -9,13 +9,13 @@ import java.util.ArrayList;
 
 public class LerArquivo {
     String caminhoArquivo;
+    Grafo grafo = new Grafo();
 
     public LerArquivo(String caminhoArquivo) {
         this.caminhoArquivo = caminhoArquivo;
     }
 
     public Grafo getDados(){
-        Grafo grafo = new Grafo();
         InputStream inputStream = LerArquivo.class.getResourceAsStream(caminhoArquivo);
 
         try {
@@ -24,7 +24,6 @@ public class LerArquivo {
             // Lendo número de filmes
             int nVertices = Integer.parseInt(br.readLine().trim());
             // Lista para armazenar os filmes
-            ArrayList<Filme> filmes = new ArrayList<>();
 
             // Lendo os filmes
             for (int i = 0; i < nVertices; i++) {
@@ -38,7 +37,6 @@ public class LerArquivo {
                 atores.add(partes[4]);
 
                 Filme f = new Filme(nome, ano, genero, descricao, atores);
-                filmes.add(f);
                 grafo.adicionarVertice(f);
             }
 
@@ -49,24 +47,9 @@ public class LerArquivo {
                 String[] partes = linha.split(";");
                 String origem = partes[0];
                 String destino = partes[1];
-                String tipo = partes[2]; //tipo aresta
-                String speso = partes[3];
-                int peso = Integer.parseInt(speso);
-                Filme filmeOrigem  = null;
-                Filme filmeDestino = null;
-                for(Filme f: filmes){
-                    if (f.getNome().equalsIgnoreCase(origem) ){
-                        filmeOrigem = new Filme(f.getNome(),f.getAno(),f.getGenero(), f.getDescricao(), f.getAtores());
-                    }
-                    if (f.getNome().equalsIgnoreCase(destino)){
-                        filmeDestino =  new Filme(f.getNome(),f.getAno(),f.getGenero(), f.getDescricao(), f.getAtores());
-                    }
-                }
-                if(tipo.equalsIgnoreCase("ARESTA_GENERO")){
-                    grafo.adicionarAresta(grafo, filmeOrigem, filmeDestino, TipoAresta.ARESTA_GENERO, peso);
-                }else{
-                    grafo.adicionarAresta(grafo, filmeOrigem, filmeDestino, TipoAresta.ARESTA_ATOR, peso);
-                }
+                TipoAresta tipo = TipoAresta.valueOf(partes[2]);//tipo aresta;
+                int peso = Integer.parseInt(partes[3]);
+                    grafo.adicionarAresta(grafo, grafo.buscaFilme(origem), grafo.buscaFilme(destino), tipo, peso);
             }
             br.close();
         } catch (IOException e) {
@@ -75,5 +58,3 @@ public class LerArquivo {
         return grafo;
     }
 }
-
-
