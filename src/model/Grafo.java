@@ -1,6 +1,5 @@
 package model;
 import enums.TipoAresta;
-
 import java.util.*;
 
 public class Grafo {
@@ -15,19 +14,19 @@ public class Grafo {
         adicionarVertice(destino);
 
         // Adiciona origem → destino
-        if (!existeAresta(origem, destino, tipo)) {
+        if (!existeAresta(origem, destino)) {
             Aresta aresta = new Aresta(destino, tipo, peso);
             adjacencia.get(origem).add(aresta);
         }
 
         // Adiciona destino → origem
-        if (!existeAresta(destino, origem, tipo)) {
+        if (!existeAresta(destino, origem)) {
             Aresta aresta2 = new Aresta(origem, tipo, peso);
             adjacencia.get(destino).add(aresta2);
         }
     }
 
-    public boolean existeAresta(Filme origem, Filme destino, TipoAresta tipo) {
+    public boolean existeAresta(Filme origem, Filme destino) {
         if(adjacencia.get(origem) == null) {
             return false;
         }

@@ -1,5 +1,4 @@
 package model;
-import enums.TipoAresta;
 import java.util.ArrayList;
 
 public class Filme {

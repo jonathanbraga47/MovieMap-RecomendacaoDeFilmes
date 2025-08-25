@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import static java.lang.System.exit;
+
 public class LerArquivo {
     String caminhoArquivo;
     Grafo grafo = new Grafo();
@@ -17,6 +19,10 @@ public class LerArquivo {
 
     public Grafo getDados(){
         InputStream inputStream = LerArquivo.class.getResourceAsStream(caminhoArquivo);
+            if(inputStream == null){
+                System.out.println("Erro ao ler arquivo");
+                exit(1);
+            }
 
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));

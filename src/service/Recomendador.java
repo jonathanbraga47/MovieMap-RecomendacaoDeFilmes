@@ -1,12 +1,15 @@
 package service;
-import enums.TipoAresta;
-import model.*;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import enums.TipoAresta;
+import model.Filme;
+import model.Grafo;
+
 public class Recomendador {
-    private Grafo grafo;
+    private final Grafo grafo;
     private int indiceAtual;
 
     public Recomendador(Grafo grafo){
@@ -48,4 +51,45 @@ public class Recomendador {
     public ArrayList<Filme> recomendarPorTipo(Filme origem, TipoAresta tipo){
         return grafo.buscaEmLarguraTipo(origem, tipo);
     }
+
+    public void executarRecomendacao(Scanner input, TipoAresta tipo) {
+        System.out.println("Digite o nome do filme: ");
+        Filme filmeEscolhido = grafo.buscaFilme(input.nextLine());
+            if(filmeEscolhido == null){ // caso não ache o filme
+                System.out.println("\u001B[31mERRO: [Nome inválido / Filme não encontrado].\u001B[0m");
+                System.out.println("1. Tentar novamente");
+                System.out.println("2. Voltar ao menu");
+                    Scanner escolhido = new Scanner(System.in);
+                        int escolha = escolhido.nextInt();
+                        escolhido.nextLine();
+                            if(escolha == 1) {
+                                executarRecomendacao(input, tipo);
+                                return;
+                            }else if(escolha == 2)
+                                return;
+                        executarRecomendacao(input, tipo);
+                            return;
+            }
+        resetIndiceAtual();
+
+        ArrayList<Filme> recomendados =
+                (tipo == null)
+                        ? recomendarPorDijkstra(filmeEscolhido)
+                        : recomendarPorTipo(filmeEscolhido, tipo);
+
+        int opcao;
+        do {
+            if (!mostrarFilmes(recomendados)) {
+                System.out.println("Não há mais filmes a serem exibidos com este filtro!");
+                break;
+            } else {
+                System.out.println("\n1. Ver mais recomendações");
+                System.out.println("2. Voltar ao menu");
+                opcao = input.nextInt();
+                input.nextLine();
+                if (opcao == 2) System.out.println("Voltando ao menu...");
+            }
+        } while (opcao != 2);
+    }
+
 }
