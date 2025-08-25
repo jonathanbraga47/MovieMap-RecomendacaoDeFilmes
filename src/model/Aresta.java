@@ -2,9 +2,9 @@ package model;
 import enums.TipoAresta;
 
 public class Aresta {
-    private Filme destino;
-    private TipoAresta tipo;
-    private int peso;
+    private final Filme destino;
+    private final TipoAresta tipo;
+    private final int peso;
 
     public Aresta(Filme Destino, TipoAresta tipo, int peso) {
         this.destino = Destino;

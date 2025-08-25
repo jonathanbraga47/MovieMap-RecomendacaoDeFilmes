@@ -49,7 +49,7 @@ public class LerArquivo {
                 String destino = partes[1];
                 TipoAresta tipo = TipoAresta.valueOf(partes[2]);//tipo aresta;
                 int peso = Integer.parseInt(partes[3]);
-                    grafo.adicionarAresta(grafo, grafo.buscaFilme(origem), grafo.buscaFilme(destino), tipo, peso);
+                    grafo.adicionarAresta(grafo.buscaFilme(origem), grafo.buscaFilme(destino), tipo, peso);
             }
             br.close();
         } catch (IOException e) {

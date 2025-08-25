@@ -25,11 +25,32 @@ public class Filme {
 
     @Override
     public String toString() { //impressão de Filme
-        return "Filme: \n"+
-                "Nome: " + getNome() + "\n"+
-                "Ano de lançamento: " + getAno() + "\n"+
+        return  "Filme: " + getNome() + " (" + getAno() + ")\n"+
                 "Gênero: " + getGenero() + "\n" +
                 "Descrição: " + getDescricao() + "\n" +
-                "Atores: " + getAtores() + "\n";
+                "Principais atores: " + getAtores() + "\n";
+    }
+
+    //isso é pra o has set de busca em largura funcionar
+    @Override
+    public boolean equals(Object obj) {//recebe Object porque tá sobrecrevendo Objcet.equals
+        if(this == obj){//se obj é a mesma instância que this(mesmo endereço de memória)
+            return true;
+        }
+        if(!(obj instanceof Filme)){//se o obj não for da classe filme
+            return false;
+        }
+        Filme filme = (Filme) obj;//faz o cast de object para filme
+        return this.ano == filme.ano && this.nome.equals(filme.nome);//serão iguais se tiverem mesmo ano e mesmo nome
+    }
+
+    @Override
+    public int hashCode() {
+        return 31 * nome.hashCode() + ano;
+        //clacula um valor hash único a partir do nome e do ano
+        //nome.hascode gera um número inteiro baseado na string nome
+        //multiplica por 31(primo) e soma a ano para ficar mais indintificavel no has
     }
 }
+
+

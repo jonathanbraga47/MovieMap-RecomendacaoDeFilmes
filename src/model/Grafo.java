@@ -4,13 +4,13 @@ import enums.TipoAresta;
 import java.util.*;
 
 public class Grafo {
-    private Map<Filme, ArrayList<Aresta>> adjacencia = new HashMap<>();
+    private final Map<Filme, ArrayList<Aresta>> adjacencia = new HashMap<>();
 
     public void adicionarVertice(Filme filme) {
         adjacencia.putIfAbsent(filme, new ArrayList<>());
     }
 
-    public Grafo adicionarAresta(Grafo grafo, Filme origem, Filme destino, TipoAresta tipo, int peso ) {
+    public void adicionarAresta(Filme origem, Filme destino, TipoAresta tipo, int peso ) {
         adicionarVertice(origem);
         adicionarVertice(destino);
 
@@ -25,7 +25,6 @@ public class Grafo {
             Aresta aresta2 = new Aresta(origem, tipo, peso);
             adjacencia.get(destino).add(aresta2);
         }
-        return grafo;
     }
 
     public boolean existeAresta(Filme origem, Filme destino, TipoAresta tipo) {
@@ -48,7 +47,7 @@ public class Grafo {
 
     public void listarFilmes(){
         for(Filme filme : adjacencia.keySet()){
-            System.out.println(filme.getNome() + " (" + filme.getAno() + ")");
+            System.out.println(filme.getNome() + " (" + filme.getAno() + ")\n");
         }
     }
 
@@ -61,12 +60,6 @@ public class Grafo {
         }
         return arestas;
     }
-
-    public ArrayList<Aresta> getArestas(Filme filme) {
-        return adjacencia.get(filme);
-    }
-
-    public Map<Filme, ArrayList<Aresta>> getAdjacencia() {return adjacencia;}
 
     public Map<Filme, Integer> dijkstra(Filme origem) {
         Map<Filme, Integer> distancias = new HashMap<>();
@@ -102,6 +95,30 @@ public class Grafo {
             }
         }
         return distancias;
+    }
+
+    public ArrayList<Filme> buscaEmLarguraTipo(Filme origem, TipoAresta tipo){
+        ArrayList<Filme> recomendados = new ArrayList<>();//lista de saida em ordem de proximidade
+        Set<Filme> visitados = new HashSet<>();//o hasset(por que evita repetições por ser uma coleção de elementos únicos)
+        // pra registras os filmes já visitados
+        Queue<Filme> fila = new LinkedList<>();//fila FIFO(primeiro a entrar/primeiro a sair) que garante a ordem em largura
+
+        visitados.add(origem);//marca a origem como visitada
+        fila.add(origem);//enfileira a origem
+
+        while(!fila.isEmpty()){
+            Filme atual = fila.poll();//pool remove e retorna o primeiro da fila
+
+            for(Aresta aresta: getArestasTipo(atual, tipo)){
+                Filme vizinho = aresta.getDestino();//pega o vértice conectado a aquela aresta
+                if(!visitados.contains(vizinho)){//se ainda não foi visitado
+                    visitados.add(vizinho);//marca como visitado no hasset(unicidade)
+                    fila.add(vizinho);//enfileira
+                    recomendados.add(vizinho);//adiciona a lista de recomendações
+                }
+            }
+        }
+        return recomendados;
     }
 
     @Override
