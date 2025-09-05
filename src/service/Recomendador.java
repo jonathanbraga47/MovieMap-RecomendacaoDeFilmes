@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import enums.TipoAresta;
+import model.Aresta;
 import model.Filme;
 import model.Grafo;
 
@@ -49,7 +50,15 @@ public class Recomendador {
     }
 
     public ArrayList<Filme> recomendarPorTipo(Filme origem, TipoAresta tipo){
-        return grafo.buscaEmLarguraTipo(origem, tipo);
+        ArrayList<Filme> recomendados = new ArrayList<>();
+
+            for(Aresta a : grafo.getArestasTipo(origem, TipoAresta.ARESTA_DUPLA)){
+                recomendados.add(a.getDestino());
+            }
+            for(Aresta a : grafo.getArestasTipo(origem, tipo)){
+                recomendados.add(a.getDestino());
+            }
+        return recomendados;
     }
 
     public void executarRecomendacao(Scanner input, TipoAresta tipo) {

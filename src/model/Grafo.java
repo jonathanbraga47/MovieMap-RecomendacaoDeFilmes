@@ -96,30 +96,6 @@ public class Grafo {
         return distancias;
     }
 
-    public ArrayList<Filme> buscaEmLarguraTipo(Filme origem, TipoAresta tipo){
-        ArrayList<Filme> recomendados = new ArrayList<>();//lista de saida em ordem de proximidade
-        Set<Filme> visitados = new HashSet<>();//o hasset(por que evita repetições por ser uma coleção de elementos únicos)
-        // pra registras os filmes já visitados
-        Queue<Filme> fila = new LinkedList<>();//fila FIFO(primeiro a entrar/primeiro a sair) que garante a ordem em largura
-
-        visitados.add(origem);//marca a origem como visitada
-        fila.add(origem);//enfileira a origem
-
-        while(!fila.isEmpty()){
-            Filme atual = fila.poll();//pool remove e retorna o primeiro da fila
-
-            for(Aresta aresta: getArestasTipo(atual, tipo)){
-                Filme vizinho = aresta.getDestino();//pega o vértice conectado a aquela aresta
-                if(!visitados.contains(vizinho)){//se ainda não foi visitado
-                    visitados.add(vizinho);//marca como visitado no hasset(unicidade)
-                    fila.add(vizinho);//enfileira
-                    recomendados.add(vizinho);//adiciona a lista de recomendações
-                }
-            }
-        }
-        return recomendados;
-    }
-
     @Override
     public String toString() { //Impressão do grafo
 

@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 import enums.TipoAresta;
+import model.Filme;
 import model.Grafo;
 import model.LerArquivo;
 import service.Recomendador;
@@ -21,6 +22,7 @@ public class Main {
             System.out.println("3. Recomendar filmes de mesmos atores");
             System.out.println("4. Vizualizar filmes disponíveis");
             System.out.println("5. Vizualizar Grafo");
+            System.out.println("6. Vizualizar informações de um filme");
             System.out.println("0. Fechar programa");
             int opcao = input.nextInt();
             input.nextLine();
@@ -33,6 +35,7 @@ public class Main {
                     grafo.listarFilmes();
                 }
                 case 5 -> System.out.println(grafo);
+                //case 6 ->
                 case 0 -> {
                     System.out.println("Encerrando programa...");
                     rodando = false;
