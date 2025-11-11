@@ -24,19 +24,19 @@ public class Main {
             System.out.println("5. Vizualizar Grafo");
             System.out.println("6. Vizualizar informações de um filme");
             System.out.println("0. Fechar programa");
-            int opcao = input.nextInt();
-            input.nextLine();
+            System.out.println("Digite sua escolha: ");
+            String opcao = input.nextLine();
             switch (opcao) {
-                case 1 -> recomendador.executarRecomendacao(input,null);
-                case 2 -> recomendador.executarRecomendacao(input, TipoAresta.ARESTA_GENERO);
-                case 3 -> recomendador.executarRecomendacao(input, TipoAresta.ARESTA_ATOR);
-                case 4 -> {
-                    System.out.println("\n======= FILME =======");
+                case "1" -> recomendador.executarRecomendacao(input,null);
+                case "2" -> recomendador.executarRecomendacao(input, TipoAresta.ARESTA_GENERO);
+                case "3" -> recomendador.executarRecomendacao(input, TipoAresta.ARESTA_ATOR);
+                case "4" -> {
+                    System.out.println("\n======= FILMES =======");
                     grafo.listarFilmes();
                 }
-                case 5 -> System.out.println(grafo);
-                //case 6 ->
-                case 0 -> {
+                case "5" -> System.out.println(grafo);
+                case "6" -> recomendador.exibirFilme(input);
+                case "0" -> {
                     System.out.println("Encerrando programa...");
                     rodando = false;
                 }
